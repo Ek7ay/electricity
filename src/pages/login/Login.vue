@@ -12,7 +12,9 @@
                 required
                 clearable
                 label="手机号"
+                maxlength="11"
                 placeholder="请输入手机号"
+                :error-message="phoneNumberRight?'':'手机号格式不正确'"
               />
               <van-field
                 v-model="sms"
@@ -46,6 +48,8 @@
                 @click.stop="changePanda(1)"
                 label="手机号"
                 placeholder="请输入手机号"
+                maxlength="11"
+                :error-message="phoneNumberRight?'':'手机号格式不正确'"
               />
               <van-field
                 v-model="login_password"
@@ -79,14 +83,14 @@
           <van-tab title="注册">
             <van-cell-group>
               <van-field
-                v-model="phone"
+                v-model="register_userName"
                 required
                 clearable
                 label="手机号"
                 placeholder="请输入手机号"
               />
               <van-field
-                v-model="sms"
+                v-model="register_pwd"
                 required
                 clearable
                 label="密码"
@@ -191,17 +195,26 @@
               isShowSMSLogin: true ,   //是否短信登陆
               imgCaptcha: "",   //图片验证码
               countDown: 0,   //按钮上的倒计时秒数
+              register_userName: '',        // 注册用户名
+              register_pwd: '',             // 注册密码
             }
         },
         computed: {
             // 1.手机号码验证
-
+            phoneNumberRight () {
+                let value = this.isShowSMSLogin ? this.login_userName : this.login_phone;
+                if (value.length > 10) {
+                    return /[1][3,4,5,6,7,8][0-9]{9}$/.test(value);
+                } else {
+                    return true;
+                }
+            },
             // 2.发送验证码按钮显示
             captchaDisable () {
-              if (this.login_phone.length > 10) {
-                  return false
+              if (this.login_phone.length > 10 && this.phoneNumberRight) {
+                  return false;
               } else {
-                  return true
+                  return true;
               }
             }
         },
