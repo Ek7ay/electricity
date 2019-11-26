@@ -8,7 +8,7 @@
             <!--手机验证码登陆-->
             <van-cell-group v-show="!isShowSMSLogin">
               <van-field
-                v-model="phone"
+                v-model="login_phone"
                 required
                 clearable
                 label="手机号"
@@ -22,13 +22,25 @@
                 label="短信验证码"
                 placeholder="验证码"
               >
-                <van-button slot="button" size="small" type="primary">发送验证码</van-button>
+                <van-button
+                  slot="button"
+                  size="small"
+                  type="primary"
+                  v-if="!countDown"
+                  :disabled="captchaDisable"
+                >发送验证码</van-button>
+                <van-button
+                  slot="button"
+                  size="small"
+                  type="primary"
+                  v-else
+                >已发送{{countDown}}s</van-button>
               </van-field>
             </van-cell-group>
             <!--账号密码登陆-->
             <van-cell-group v-show="isShowSMSLogin">
               <van-field
-                v-model="phone"
+                v-model="login_userName"
                 required
                 clearable
                 @click.stop="changePanda(1)"
@@ -36,7 +48,7 @@
                 placeholder="请输入手机号"
               />
               <van-field
-                v-model="sms"
+                v-model="login_password"
                 required
                 center
                 clearable
@@ -172,10 +184,25 @@
             return {
               pandaUrl: require("../../assets/img/login/normal.png"),
               active: 2,
-              phone: "",       //手机号
+              login_userName: "",       //用户名
+              login_password: '',           // 用户密码
+              login_phone: '',              // 手机号码
               sms: "",         //短信验证码
-              isShowSMSLogin: true ,     //是否短信登陆
-              imgCaptcha: ""   //图片验证码
+              isShowSMSLogin: true ,   //是否短信登陆
+              imgCaptcha: "",   //图片验证码
+              countDown: 0,   //按钮上的倒计时秒数
+            }
+        },
+        computed: {
+            // 1.手机号码验证
+
+            // 2.发送验证码按钮显示
+            captchaDisable () {
+              if (this.login_phone.length > 10) {
+                  return false
+              } else {
+                  return true
+              }
             }
         },
         methods: {
