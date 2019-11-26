@@ -14,6 +14,7 @@
                 label="手机号"
                 maxlength="11"
                 placeholder="请输入手机号"
+                @click.stop="changePanda(1)"
                 :error-message="phoneNumberRight?'':'手机号格式不正确'"
               />
               <van-field
@@ -30,6 +31,7 @@
                   type="primary"
                   v-if="!countDown"
                   :disabled="captchaDisable"
+                  @click="sendVerifyCode"
                 >发送验证码</van-button>
                 <van-button
                   slot="button"
@@ -88,6 +90,7 @@
                 clearable
                 label="手机号"
                 placeholder="请输入手机号"
+                @click.stop="changePanda(1)"
               />
               <van-field
                 v-model="register_pwd"
@@ -95,6 +98,7 @@
                 clearable
                 label="密码"
                 placeholder="请输入密码（不少于6位）"
+                @click.stop="changePanda(2)"
               />
             </van-cell-group>
             <van-button class="btn-login" type="info" size="large">注册</van-button>
@@ -225,6 +229,7 @@
             let captchaEle = this.$refs.imgCaptcha;
             this.$set(captchaEle, 'src', 'http://demo.itlike.com/web/xlmc/api/captcha?time=' + new Date());
           },
+          // 1.账号密码登录及短信验证码切换
           switchLogin () {
             this.isShowSMSLogin = ! this.isShowSMSLogin
           },
@@ -242,6 +247,17 @@
                 break;
               default:;
             }
+          },
+          // 4.获取手机验证码
+          sendVerifyCode () {
+            // 1,倒计时,如果减到0 则清除定时器
+              this.countDown = 60;
+              const timeIntervalID = setInterval(() => {
+                  this.countDown--;
+                  if (this.countDown == 0) {
+                      clearInterval(timeIntervalID);
+                  }
+              }, 1000)
           },
           // 7.用户协议
           agreement (index) {
