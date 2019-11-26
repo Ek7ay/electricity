@@ -1,6 +1,7 @@
 <template>
-    <div class="login">
+    <div class="login" @click="changePanda(0)">
       <div class="login-box">
+        <img class="panda" :src="pandaUrl">
         <van-icon class="closeIcon" name="close" />
         <van-tabs v-model="active">
           <van-tab title="登录">
@@ -30,6 +31,7 @@
                 v-model="phone"
                 required
                 clearable
+                @click.stop="changePanda(1)"
                 label="手机号"
                 placeholder="请输入手机号"
               />
@@ -38,6 +40,7 @@
                 required
                 center
                 clearable
+                @click.stop="changePanda(2)"
                 label="密码"
                 placeholder="请输入密码"
               >
@@ -167,6 +170,7 @@
         name: "Login",
         data () {
             return {
+              pandaUrl: require("../../assets/img/login/normal.png"),
               active: 2,
               phone: "",       //手机号
               sms: "",         //短信验证码
@@ -183,6 +187,21 @@
           },
           switchLogin () {
             this.isShowSMSLogin = ! this.isShowSMSLogin
+          },
+          // 2.切换萌猫图片
+          changePanda (data) {
+            switch (data) {
+              case 0:
+                this.pandaUrl = require('../../assets/img/login/normal.png');
+                break;
+              case 1:
+                this.pandaUrl = require('../../assets/img/login/greeting.png');
+                break;
+              case 2:
+                this.pandaUrl = require('../../assets/img/login/blindfold.png');
+                break;
+              default:;
+            }
           },
           // 7.用户协议
           agreement (index) {
@@ -236,6 +255,12 @@
       background $bgColor
       opacity 0.9
       padding .70rem
+      .panda
+        width 1.4rem
+        position absolute
+        top 0
+        left 50%
+        transform translate(-50%, -50%)
       .closeIcon
         position absolute
         top .14rem
@@ -243,7 +268,7 @@
         font-size .40rem
       .verificationImageBox
         padding: 0 16px;
-        img 
+        img
           height .88rem
       .switchLogin
         font-size .28rem
