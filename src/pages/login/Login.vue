@@ -185,6 +185,7 @@
 <script>
     // 引入Vant的组件
     import { Toast, Dialog } from 'vant'
+    import { getPhoneCaptcha } from '../../serve/index.js'
 
     export default {
         name: "Login",
@@ -249,15 +250,25 @@
             }
           },
           // 4.获取手机验证码
-          sendVerifyCode () {
+          async sendVerifyCode () {
             // 1,倒计时,如果减到0 则清除定时器
-              this.countDown = 60;
-              const timeIntervalID = setInterval(() => {
-                  this.countDown--;
-                  if (this.countDown == 0) {
-                      clearInterval(timeIntervalID);
-                  }
-              }, 1000)
+            this.countDown = 60;
+            const timeIntervalID = setInterval(() => {
+                this.countDown--;
+                if (this.countDown == 0) {
+                    clearInterval(timeIntervalID);
+                }
+            }, 1000)
+            // 4.2 获取短信验证码
+              let result = await getPhoneCaptcha(this.login_phone);
+              if (result.success_code == 200) {
+                  this.sms = result.data.code;
+                  // 4.3  获取验证码成功
+                  Dialog.alert({
+                      title: '温馨提示',
+                      message: '验证码获取成功,请在输入框输入:' + result.data.code
+                  }).then(() => {});
+              }
           },
           // 7.用户协议
           agreement (index) {
