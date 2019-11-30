@@ -1,12 +1,15 @@
 import ajax from './ajax'
 
 // 1. 定义基础路径
-const BASE_URL = 'https://mock.cangdu.org/mock/5d940466d360e8289c6a8eb7/api/'
+const BASE_URL = 'https://mock.cangdu.org/mock/5d940466d360e8289c6a8eb7/api/';
+const baseUrl = "http://39.106.33.110:7300/mock/5de0dee2994998166e562224/electricity/";
+
+
 
 /***** 登录界面接口 *********/
 // 1.获取手机验证码(GET)
 // Easy Mock 模拟发送验证码
-export const getPhoneCaptcha = (phoneNumber) => ajax(BASE_URL + 'send_code', {
+export const getPhoneCaptcha = (phoneNumber) => ajax(baseUrl + 'getVerificationCode', {
   phoneNumber
 });
 

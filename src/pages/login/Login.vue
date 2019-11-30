@@ -258,7 +258,7 @@
                 if (this.countDown == 0) {
                     clearInterval(timeIntervalID);
                 }
-            }, 1000)
+            }, 1000);
             // 4.2 获取短信验证码
               let result = await getPhoneCaptcha(this.login_phone);
               if (result.success_code == 200) {
