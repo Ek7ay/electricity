@@ -76,7 +76,12 @@
                      slot="button">
               </van-field>
             </van-cell-group>
-            <van-button class="btn-login" type="info" size="large">登录</van-button>
+            <van-button
+              class="btn-login"
+              type="info"
+              size="large"
+              @click="login"
+            >登录</van-button>
             <div class="switchLogin" @click="switchLogin">
               {{isShowSMSLogin ? "短信验证码登录" : "账号密码登录"}}
               </div>
@@ -101,7 +106,12 @@
                 @click.stop="changePanda(2)"
               />
             </van-cell-group>
-            <van-button class="btn-login" type="info" size="large">注册</van-button>
+            <van-button
+              class="btn-login"
+              type="info"
+              size="large"
+              @click="register"
+            >注册</van-button>
           </van-tab>
         </van-tabs>
         <!-- 其他登录方式 -->
@@ -185,7 +195,7 @@
 <script>
     // 引入Vant的组件
     import { Toast, Dialog } from 'vant'
-    import { getPhoneCaptcha } from '../../serve/index.js'
+    import { getPhoneCaptcha, phoneCaptchaLogin } from '../../serve/index.js'
 
     export default {
         name: "Login",
@@ -202,6 +212,7 @@
               countDown: 0,   //按钮上的倒计时秒数
               register_userName: '',        // 注册用户名
               register_pwd: '',             // 注册密码
+              smsCaptchaResult: "",         //返回的短信验证码
             }
         },
         computed: {
@@ -263,11 +274,99 @@
               let result = await getPhoneCaptcha(this.login_phone);
               if (result.success_code == 200) {
                   this.sms = result.data.code;
+                  this.smsCaptchaResult = result.data.code;
                   // 4.3  获取验证码成功
                   Dialog.alert({
                       title: '温馨提示',
                       message: '验证码获取成功,请在输入框输入:' + result.data.code
                   }).then(() => {});
+              }
+          },
+          // 5.登录
+          async login () {
+              if (!this.isShowSMSLogin) {
+                  if (!this.phoneNumberRight || this.login_phone.length < 10) {
+                      // 5.1手机验证码登录
+                      // 5.1.1 验证手机号
+                      Toast({
+                          message: '请输入正确的手机号',
+                          duration: 800
+                      });
+                      return;
+                  } else if (this.sms.length < 7 || this.sms != Number(this.smsCaptchaResult)) {
+                      // 5.1.2 验证验证码
+                      Toast({
+                          message: '请输入正确的验证码',
+                          duration: 800
+                      });
+                      return;
+                  }
+                  // 5.1.3 请求后台登录接口
+                  let ref = await phoneCaptchaLogin(this.login_phone, this.sms);
+
+              } else {
+                  if (this.login_userName.length < 1) {
+                      Toast({
+                          message: '请输入手机号',
+                          duration: 800
+                      });
+                      return;
+                  } else if (!this.phoneRegex(this.login_userName)) {
+                      Toast({
+                          message: '手机号格式不正确',
+                          duration: 800
+                      });
+                      return;
+                  } else if (this.login_password.length < 1) {
+                      Toast({
+                          message: '密码不能为空',
+                          duration: 800
+                      });
+                      return;
+                  } else if (this.imgCaptcha.length < 1) {
+                      Toast({
+                          message: '请输入验证码',
+                          duration: 800
+                      });
+                      return;
+                  }
+                  // 5.2.2 请求后台
+                  let ref = await phoneCaptchaLogin(this.login_userName, this.login_password);
+
+              }
+          },
+            // 6.注册
+          async register () {
+              if (this.register_userName.length < 1) {
+                  Toast({
+                      message: '手机号不能为空',
+                      duration: 800
+                  })
+              } else if (!this.phoneRegex(this.register_userName)) {
+                  Toast({
+                      message: '手机号格式不正确',
+                      duration: 800
+                  })
+              } else if (this.register_pwd.length < 0) {
+                  Toast({
+                      message: '请输入密码',
+                      duration: 800
+                  })
+              } else if (this.register_pwd.length < 6) {
+                  Toast({
+                      message: '密码至少为6位哦!',
+                      duration: 800
+                  })
+              } else {
+                  // 6.1 请求后台登录接口
+                  let ref = await phoneCaptchaLogin(this.register_userName, this.register_pwd);
+                  Toast({
+                      message: '注册成功!',
+                      duration: 800
+                  })
+                  // 设置userInfo 保存到vuex和本地
+                  // this.syncuserInfo(ref.data);
+                  // this.$router.back();
               }
           },
           // 7.用户协议
@@ -298,6 +397,10 @@
               });
             }
           },
+          // 正则验证
+          phoneRegex (number) {
+                return (/[1][3,4,5,6,7,8][0-9]{9}$/.test(number));
+            }
         },
     }
 </script>

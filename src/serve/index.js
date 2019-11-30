@@ -15,7 +15,7 @@ export const getPhoneCaptcha = (phoneNumber) => ajax(baseUrl + 'getVerificationC
 
 // 2.手机验证码登录(POST)
 // Easy Mock 模拟用户登录
-export const phoneCaptchaLogin = (phone, captcha) => ajax(BASE_URL + 'login_code', {
+export const phoneCaptchaLogin = (phone, captcha) => ajax(baseUrl + 'login_code', {
   phone,
   captcha
 }, 'POST');
