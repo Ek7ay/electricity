@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import fastClick from 'fastclick'
 import '@/plugins/vant'
+import store from './store'
 
 import 'styles/reset.css'
 import 'styles/border.css'
@@ -12,10 +13,12 @@ import 'styles/border.css'
 fastClick.attach(document.body);
 Vue.config.productionTip = false;
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 });

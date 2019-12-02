@@ -262,7 +262,7 @@
           },
           // 4.获取手机验证码
           async sendVerifyCode () {
-            // 1,倒计时,如果减到0 则清除定时器
+            // 4.1,倒计时,如果减到0 则清除定时器
             this.countDown = 60;
             const timeIntervalID = setInterval(() => {
                 this.countDown--;
