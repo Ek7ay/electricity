@@ -1,17 +1,17 @@
 const login = {
   state: {
-    phoneno: '',
+    obj: {},
   },
 
   mutations: {
-    SET_PHONENO: (state, phoneno) => {
-      state.phoneno = phoneno
+    SET_OBJ: (state, obj) => {
+      state.obj = obj
     },
   },
 
   actions: {
-    setPhoneno( { commit, state}, phoneno) {
-      commit('SET_PHONENO', phoneno)
+    setObj( { commit, state}, obj) {
+      commit('SET_OBJ', obj)
     },
   },
 };
