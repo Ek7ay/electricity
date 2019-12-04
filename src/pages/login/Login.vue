@@ -304,7 +304,7 @@
                   // 5.1.3 请求后台登录接口
                   let ref = await phoneCaptchaLogin(this.login_phone, this.sms);
                   this.$store.dispatch('setObj', { obj: ref.data });
-                  this.$router.push('/home');
+                  this.$router.push('/navigation');
               } else {
                   if (this.login_userName.length < 1) {
                       Toast({
@@ -334,7 +334,7 @@
                   // 5.2.2 请求后台
                   let ref = await phoneCaptchaLogin(this.login_userName, this.login_password);
                   this.$store.dispatch('setObj', { obj: ref.data });
-                  this.$router.push('/home');
+                  this.$router.push('/navigation');
               }
           },
             // 6.注册
@@ -367,7 +367,7 @@
                       duration: 800
                   });
                   this.$store.dispatch('setObj', { obj: ref.data });
-                  this.$router.push('/home')
+                  this.$router.push('/navigation')
                   // 设置userInfo 保存到vuex和本地
                   // this.syncuserInfo(ref.data);
                   // this.$router.back();

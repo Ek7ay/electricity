@@ -9,7 +9,7 @@
         name: "Home",
         data () {
             return {
-                info: "hello world"
+                info: "home"
             }
         }
     }
