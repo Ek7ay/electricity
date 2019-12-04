@@ -1,20 +1,30 @@
 <template>
-    <div>
-      {{info}}
+  <div class="home">
+    <div class="head">
+      <Header></Header>
     </div>
+  </div>
 </template>
 
 <script>
+    import Header from "./components/Header";
     export default {
-        name: "Home",
         data () {
             return {
-                info: "home"
+
             }
+        },
+        components: {
+          Header
         }
     }
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+  .home
+    .head
+      width 7.5rem
+      height 5.4rem
+      background url("../../assets/img/back/title.png") no-repeat
+      background-size cover
 </style>
