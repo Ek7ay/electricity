@@ -5,6 +5,7 @@
       <swiper :SwiperList="SwiperList"></swiper>
       <Tip></Tip>
     </div>
+    <Banner></Banner>
   </div>
 </template>
 
@@ -13,6 +14,7 @@
     import Swiper from "./components/Swiper";
     import { getHomeData } from '../../serve/index.js';
     import Tip from "./components/Tip";
+    import Banner from "./components/Banner";
 
     export default {
         data () {
@@ -26,14 +28,14 @@
         components: {
           Header,
           Swiper,
-          Tip
+          Tip,
+          Banner
         },
         methods: {
           _initData () {
             getHomeData().then(res => {
               if (res.success) {
                 this.SwiperList = res.data.list[0].icon_list;
-                console.log(res.data.list[0].icon_list);
               }
             })
           }
