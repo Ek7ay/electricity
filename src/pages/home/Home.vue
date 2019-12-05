@@ -6,6 +6,8 @@
       <Tip></Tip>
     </div>
     <Banner></Banner>
+    <!--导航-->
+    <Nav></Nav>
   </div>
 </template>
 
@@ -15,6 +17,7 @@
     import { getHomeData } from '../../serve/index.js';
     import Tip from "./components/Tip";
     import Banner from "./components/Banner";
+    import Nav from "./components/Nav";
 
     export default {
         data () {
@@ -29,7 +32,8 @@
           Header,
           Swiper,
           Tip,
-          Banner
+          Banner,
+          Nav
         },
         methods: {
           _initData () {
