@@ -12,7 +12,7 @@ import {
 } from 'vant';
 Vue.use(Loading);
 
-// 3.栅栏格子 
+// 3.栅栏格子
 import {
     Grid,
     GridItem
@@ -185,3 +185,11 @@ import {
 } from 'vant';
 Vue.use(Sidebar);
 Vue.use(SidebarItem);
+
+// 30，Search 搜索
+import { Search } from 'vant';
+Vue.use(Search);
+
+//Swipe 轮播
+import { Swipe, SwipeItem } from 'vant';
+Vue.use(Swipe).use(SwipeItem);

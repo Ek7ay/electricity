@@ -7,6 +7,8 @@ import Category from "../pages/category/Category"
 import Eat from "../pages/eat/Eat"
 import Cart from "../pages/cart/Cart"
 import Mine from "../pages/mine/Mine"
+import Map from "../pages/home/components/Map";
+
 
 // 解决多次点击重复路由报错
 const originalPush = Router.prototype.push;
@@ -34,7 +36,12 @@ export default new Router({
       },{
         path: "home",
         name: "home",
-        component: Home
+        component: Home,
+        children: [{
+          path: 'map',
+          name: 'map',
+          component: Map,
+        }]
       },{
         path: "category",
         name: "category",

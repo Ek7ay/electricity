@@ -4,6 +4,8 @@ import ajax from './ajax'
 const BASE_URL = 'https://mock.cangdu.org/mock/5d940466d360e8289c6a8eb7/api/';
 const baseUrl = "http://39.106.33.110:7300/mock/5de0dee2994998166e562224/electricity/";
 
+/*****Home 模块*******/
+export const getHomeData = () => ajax(baseUrl + 'homeApi');
 
 
 /***** 登录界面接口 *********/
