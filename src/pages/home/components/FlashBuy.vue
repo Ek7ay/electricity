@@ -11,11 +11,13 @@
       </van-count-down>
       <span class="more">更多</span>
     </div>
+    <flash-food :info="info"/>
   </div>
 </template>
 
 <script>
     import Title from "../../../components/Title";
+    import FlashFood from "./FlashFood";
     export default {
         props: {
           info: Array
@@ -27,10 +29,11 @@
           }
         },
         components: {
-          Title
+          Title,
+          FlashFood
         },
         mounted() {
-          console.log(this.info)
+
         }
     }
 </script>
