@@ -1,5 +1,11 @@
 <template>
-  <div>world</div>
+  <div class="FlashFood">
+    <ul class="item">
+      <li>
+
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
