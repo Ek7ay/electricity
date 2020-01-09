@@ -12,6 +12,8 @@
     <vip-tip></vip-tip>
     <!-- 限时抢购 -->
     <FlashBuy :info="flash_sale_product_list" />
+    <!--特色专区-->
+    <special-zone></special-zone>
   </div>
 </template>
 
@@ -24,6 +26,7 @@
     import Nav from "./components/Nav";
     import VipTip from "./components/VipTip";
     import FlashBuy from "./components/FlashBuy";
+    import SpecialZone from "./components/SpecialZone"
 
     export default {
         data () {
@@ -43,7 +46,8 @@
           Banner,
           Nav,
           VipTip,
-          FlashBuy
+          FlashBuy,
+          SpecialZone
         },
         methods: {
           _initData () {

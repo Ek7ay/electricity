@@ -9,11 +9,6 @@
       props: {
         info: String
       },
-      data () {
-        return {
-
-        }
-      }
     }
 </script>
 

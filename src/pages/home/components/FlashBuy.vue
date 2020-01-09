@@ -40,7 +40,7 @@
 
 <style lang="stylus" scoped>
 .flashBuy
-  height 250px
+  height 4.4rem
   .top
     height .76rem
     line-height 0.76rem
