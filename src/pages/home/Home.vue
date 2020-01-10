@@ -5,15 +5,17 @@
       <swiper :SwiperList="SwiperList"></swiper>
       <Tip></Tip>
     </div>
-    <Banner></Banner>
+    <Banner />
     <!--导航-->
-    <Nav :NavList="nav_list"></Nav>
+    <Nav :NavList="nav_list" />
     <!-- 跳转到会员界面 -->
-    <vip-tip></vip-tip>
+    <vip-tip />
     <!-- 限时抢购 -->
     <FlashBuy :info="flash_sale_product_list" />
     <!--特色专区-->
-    <special-zone></special-zone>
+    <special-zone :info="specialZone" />
+    <!--TabbarItem 商品 -->
+    <tabbar-goods-item />
   </div>
 </template>
 
@@ -26,7 +28,9 @@
     import Nav from "./components/Nav";
     import VipTip from "./components/VipTip";
     import FlashBuy from "./components/FlashBuy";
-    import SpecialZone from "./components/SpecialZone"
+    import SpecialZone from "./components/SpecialZone";
+    import TabbarGoodsItem from "./components/TabbarGoodsItem";
+
 
     export default {
         data () {
@@ -34,6 +38,7 @@
               SwiperList: [],      //轮播图图片
               nav_list: [],        //导航列表
               flash_sale_product_list: [],   // 限时抢购
+              specialZone: {},    //特色专区
             }
         },
         mounted() {
@@ -47,7 +52,8 @@
           Nav,
           VipTip,
           FlashBuy,
-          SpecialZone
+          SpecialZone,
+          TabbarGoodsItem
         },
         methods: {
           _initData () {
@@ -56,6 +62,7 @@
                 this.SwiperList = res.data.list[0].icon_list;
                 this.nav_list = res.data.list[2].icon_list;
                 this.flash_sale_product_list = res.data.list[3].product_list;
+                this.specialZone = res.data.special_zone;
               }
             })
           }

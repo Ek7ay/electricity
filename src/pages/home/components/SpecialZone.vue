@@ -2,22 +2,57 @@
   <div class="special">
     <Title class="title" :info="title"/>
     <div class="box">
-      <div class="item">
-        <p>新品尝鲜</p>
-        <p>不时不食, 又闻棱角香~</p>
-        <img src="../../../assets/img/shili/4513b9fc5935f1548406258985.jpg"/>
-        <img src="../../../assets/img/shili/4513b9fc5935f1548406258985.jpg"/>
+      <!-- 新品尝鲜 -->
+      <div
+        class="item"
+        v-for="(item, index) in info.newItemList"
+        :key="item.id"
+      >
+        <p>{{item.title}}</p>
+        <p>{{item.subtitle}}</p>
+        <img v-lazy="item.imageOne"/>
+        <img v-lazy="item.imageTwo"/>
       </div>
-      <div class="item"></div>
-      <div class="item"></div>
+      <!--十月爆款-->
+      <div
+        class="item"
+        v-for="(item, index) in info.hotItemList"
+        :key="item.id"
+      >
+        <p>{{item.title}}</p>
+        <p>{{item.subtitle}}</p>
+        <img v-lazy="item.imageOne"/>
+        <img v-lazy="item.imageTwo"/>
+      </div>
+      <!--vip专享-->
+      <div
+        class="item"
+        v-for="(item, index) in info.vipItemList"
+      >
+        <p>{{item.title}}</p>
+        <p>{{item.subtitle}}</p>
+        <img v-lazy="item.imageOne"/>
+        <img v-lazy="item.imageTwo"/>
+      </div>
+      <!--吃什么，平价菜场-->
       <div class="item">
-        <div class="itemSp">
-          <p>新品尝鲜</p>
-          <p>不时不食, 又闻棱角香~</p>
-          <img src="../../../assets/img/shili/4513b9fc5935f1548406258985.jpg"/>
+        <div
+          class="itemSp"
+          v-for="(item, index) in info.otherItemList"
+          :key="item.id"
+        >
+          <p>{{item.title}}</p>
+          <p>{{item.subtitle}}</p>
+          <img src="../../../assets/img/shili/peanut.jpeg"/>
         </div>
-        <div class="itemSp">
-
+        <div
+          class="itemSp"
+          v-for="(item, index) in info.lowPriceItemList"
+          :key="item.id"
+        >
+          <p>{{item.title}}</p>
+          <p>{{item.subtitle}}</p>
+          <img v-lazy="item.image"/>
         </div>
       </div>
     </div>
@@ -27,6 +62,9 @@
 <script>
     import Title from "../../../components/Title";
     export default {
+        props :{
+          info: {}
+        },
         data () {
           return {
             title: "特色专区",
@@ -41,7 +79,9 @@
 <style lang="stylus" scoped>
   @import '~styles/varibles.styl'
   .special
-    height 5.06rem
+    height 4.4rem
+    .title
+      padding-left .20rem
     .box
       width 100%
       margin-top .3rem
