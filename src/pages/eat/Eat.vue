@@ -1,10 +1,14 @@
 <template>
-    <div>eat</div>
+  <Search />
 </template>
 
 <script>
+    import Search from "./components/Search";
     export default {
-        name: "Eat"
+        name: "Eat",
+        components: {
+          Search
+        }
     }
 </script>
 
