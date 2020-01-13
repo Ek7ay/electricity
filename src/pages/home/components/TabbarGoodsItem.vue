@@ -7,11 +7,17 @@
       title-active-color="#28BE57"
     >
       <van-tab :title="itemsTitle[0]">
-        <produce-item />
+        <produce-item  :info="TabbarItem1"/>
       </van-tab>
-      <van-tab :title="itemsTitle[1]">内容 2</van-tab>
-      <van-tab :title="itemsTitle[2]">内容 3</van-tab>
-      <van-tab :title="itemsTitle[3]">内容 4</van-tab>
+      <van-tab :title="itemsTitle[1]">
+        <produce-item  :info="TabbarItem2"/>
+      </van-tab>
+      <van-tab :title="itemsTitle[2]">
+        <produce-item  :info="TabbarItem1"/>
+      </van-tab>
+      <van-tab :title="itemsTitle[3]">
+        <produce-item  :info="TabbarItem2"/>
+      </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -20,6 +26,10 @@
     import ProduceItem from "./ProduceItem";
 
     export default {
+      props: {
+        TabbarItem1: Array,
+        TabbarItem2: Array
+      },
       data () {
         return {
           active: 0,
@@ -33,6 +43,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  .tabBarItem
-    height 800px
+  /*.tabBarItem*/
+  /*  height 800px*/
 </style>

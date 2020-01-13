@@ -15,7 +15,10 @@
     <!--特色专区-->
     <special-zone :info="specialZone" />
     <!--TabbarItem 商品 -->
-    <tabbar-goods-item />
+    <tabbar-goods-item
+      :TabbarItem1="TabbarItem1"
+      :TabbarItem2="TabbarItem2"
+    />
   </div>
 </template>
 
@@ -39,6 +42,8 @@
               nav_list: [],        //导航列表
               flash_sale_product_list: [],   // 限时抢购
               specialZone: {},    //特色专区
+              TabbarItem1: [],    //TabbarItem 商品数据第一类
+              TabbarItem2: []     //TabbarItem 商品数据第二类
             }
         },
         mounted() {
@@ -63,6 +68,8 @@
                 this.nav_list = res.data.list[2].icon_list;
                 this.flash_sale_product_list = res.data.list[3].product_list;
                 this.specialZone = res.data.special_zone;
+                this.TabbarItem1 = res.data.list[12].product_list;
+                this.TabbarItem2 = res.data.list[3].product_list;
               }
             })
           }
